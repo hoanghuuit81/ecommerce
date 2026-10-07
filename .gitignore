@@ -1,0 +1,19 @@
+# Environment
+backend/.env
+frontend/.env
+frontend/.env.local
+
+# Backend dependencies
+backend/vendor/
+
+# Frontend dependencies/build
+frontend/node_modules/
+frontend/dist/
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
