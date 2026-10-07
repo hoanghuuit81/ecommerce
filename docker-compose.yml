@@ -4,6 +4,7 @@ services:
       context: ./backend
     container_name: ecommerce_backend
     working_dir: /var/www
+    command: sh -c "chmod -R ug+rwX,o+rwX storage bootstrap/cache && php-fpm"
     volumes:
       - ./backend:/var/www
     depends_on:
