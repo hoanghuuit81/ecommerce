@@ -17,3 +17,9 @@ frontend/dist/
 # OS
 .DS_Store
 Thumbs.db
+ 
+# Ai
+backend/.agents/
+backend/.claude/
+backend/.mcp.json
+backend/boost.json

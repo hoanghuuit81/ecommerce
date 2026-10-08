@@ -1,26 +1,29 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
+import { CategoriesPage } from './pages/CategoriesPage'
+import { ProductsPage } from './pages/ProductsPage'
 import './App.css'
 
+type PageName = 'products' | 'categories'
+
 function App() {
-  const [message, setMessage] = useState('Loading...')
+  const [page, setPage] = useState<PageName>('products')
+  const [notice, setNotice] = useState('')
 
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/health`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`API returned ${response.status}`)
-        }
-
-        return response.json()
-      })
-      .then((data) => setMessage(data.message))
-      .catch(() => setMessage('Cannot connect to API'))
+  const notify = useCallback((message: string) => {
+    setNotice(message)
+    window.setTimeout(() => setNotice(''), 3200)
   }, [])
 
   return (
-    <main>
-      <h1>{message}</h1>
-    </main>
+    <div className="app">
+      <aside>
+        <div className="brand">StoreDesk<small>Quản trị cửa hàng</small></div>
+        <button type="button" className={page === 'products' ? 'selected' : ''} onClick={() => setPage('products')}>▣ Sản phẩm</button>
+        <button type="button" className={page === 'categories' ? 'selected' : ''} onClick={() => setPage('categories')}>◇ Danh mục</button>
+      </aside>
+      <main>{page === 'products' ? <ProductsPage notify={notify} /> : <CategoriesPage notify={notify} />}</main>
+      {notice && <div className="toast" role="status">{notice}</div>}
+    </div>
   )
 }
 
